@@ -27,7 +27,11 @@ if (!files.fileExists('Vagrantfile')) {
     const action = await inquirer.askForAction();
 
     if(action.Aktion === "Beenden"){
-        console.log(chalk.yellow.bold("Bis zum nächsten mal!"));
+        console.log(
+            chalk.blue(
+                figlet.textSync('Goodbye!',{horizontalLayout:'fitted'})
+            )
+        );
         process.exit();
     }
 
@@ -46,6 +50,6 @@ if (!files.fileExists('Vagrantfile')) {
         //Stoppe VM
         processUtil.startProcess(action.Aktion);
     }
-    
+
   }
   run();
