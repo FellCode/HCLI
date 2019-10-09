@@ -5,6 +5,7 @@ const clear = require('clear');
 const figlet = require('figlet');
 const files = require('./lib/files');
 const inquirer  = require('./lib/inquirer');
+const processUtil = require ('./lib/process');
 
 const spawn = require('child_process').spawn;
 
@@ -18,38 +19,33 @@ console.log(
 
 
 if (!files.fileExists('Vagrantfile')) {
-    console.log(chalk.red('Kein Vagrantfile vorhanden!'));
+    console.log(chalk.bold.red('Kein Vagrantfile vorhanden!'));
     process.exit();
   }
 
   const run = async () => {
     const action = await inquirer.askForAction();
 
+    if(action.Aktion === "Beenden"){
+        console.log(chalk.yellow.bold("Bis zum nächsten mal!"));
+        process.exit();
+    }
+
+    if(action.Aktion === "Provisionieren"){
+        const provisioning = await inquirer.askForProvisioning();
+        processUtil.startProvisioning(provisioning.Aktion);
+    }
+
     if(action.Aktion ==="Start"){
         //Starte VM
-        ls    = spawn('vagrant.exe',["up"]);
-
-ls.stdout.on('data', function (data) {
-  console.log('stdout: ' + data.toString());
-});
-
-ls.stderr.on('data', function (data) {
-  console.log('stderr: ' + data.toString());
-});
-
-ls.on('exit', function (code) {
-  console.log('child process exited with code ' + code.toString());
-});
-            
+        processUtil.startProcess(action.Aktion);
     }
 
 
     if(action.Aktion === "Stop"){
         //Stoppe VM
-        console.log("Stop");
+        processUtil.startProcess(action.Aktion);
     }
-    if(action.Aktion === "provisionieren"){
-        console.log("Prov");
-    }
+    
   }
   run();
