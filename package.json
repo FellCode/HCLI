@@ -1,0 +1,21 @@
+{
+  "name": "hcli",
+  "version": "1.0.0",
+  "description": "CLI for simplifying the application server work",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FellCode/HCLI.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "jest": "^24.9.0"
+  }
+}
